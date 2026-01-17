@@ -1,24 +1,28 @@
 // CALCULATIONS //
 
+let shouldClear = false;
+
 const historyArray = [];
 const display = document.getElementById ("display");
 input = parseFloat(display.value.toLocaleString('en-US'));  // Line doesn't work as intended - Add commas & remove extra decimals.
 
 function appendToDisplay (input) {
-    display.value += input;
-    historyArray.push (display.value);  // Adds a series of input/output numbers instead of the calculation histor e.g 73,3+,3+4.
+
+    if (shouldClear) {
+        display.value = "";
+        shouldClear = false;
+    }
+       display.value += input;
 }
 
 function clearDisplay () {    
     display.value = ""
 }
 
-
 function calculate () {
-
     try{
         display.value = eval(display.value);
-        historyArray.push (display.value);  // Adds a series of input/output numbers instead of the calculation histor e.g 73,3+,3+4.
+        shouldClear = true; 
     }
 
     catch (error) {
@@ -32,8 +36,8 @@ function deleteNo () {
 
 function calulationHistory () {
     appendToDisplay (historyArray);
-
 }
+
 
 // Clear display once new number is typed and start afresh.
 // Display current input & previous output on the screen.
